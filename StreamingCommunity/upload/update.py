@@ -178,7 +178,7 @@ def update():
 
     if str(current_version).lower().replace("v.", "").replace("v", "") != str(last_version).lower().replace("v.", "").replace("v", ""):
         console.print(f"\n[red]New version available: [yellow]{last_version}")
-        console.print(f"[green]Download it from: [yellow]https://github.com/Arrowar/StreamingCommunity/releases/tag/v{last_version}")
+        console.print(f"[green]Download it from: [yellow]https://github.com/AstraeLabs/StreamingCommunity/releases/tag/v{last_version}")
         
         if get_execution_mode() == "installer":
             console.print("[cyan]Run with [yellow]-UP [cyan]to auto-update")

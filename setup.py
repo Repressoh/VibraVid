@@ -49,7 +49,7 @@ setup(
     long_description=read_readme(),
     long_description_content_type="text/markdown",
     author="Arrowar",
-    url="https://github.com/Arrowar/StreamingCommunity",
+    url="https://github.com/AstraeLabs/StreamingCommunity",
     
     packages=find_packages(
         exclude=["tests", "tests.*", "docs", "docs.*", "GUI", "GUI.*", "Test", "Test.*"]
@@ -95,7 +95,7 @@ setup(
     ],
     
     project_urls={
-        "Bug Reports": "https://github.com/Arrowar/StreamingCommunity/issues",
-        "Source": "https://github.com/Arrowar/StreamingCommunity",
+        "Bug Reports": "https://github.com/AstraeLabs/StreamingCommunity/issues",
+        "Source": "https://github.com/AstraeLabs/StreamingCommunity",
     }
 )

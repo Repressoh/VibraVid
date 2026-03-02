@@ -132,11 +132,15 @@ def download_film(select_title: Entries) -> str:
     if preferred_locales:
         versions = client.get_versions_by_locales(url_id, preferred_locales)
         main_version = next((v for v in versions if v["audio_locale"] == preferred_locales[0]), None)
+        time.sleep(5)  # Small delay to avoid rate limiting between calls
+
         if main_version:
             main_id = main_version["guid"]
+
         for v in versions:
             if v["guid"] == main_id:
                 continue
+
             hdrs = client._get_headers()
             extra_license_hdrs = _build_license_headers(hdrs, v["guid"], v["mpd_url"], v.get("token"))
             mpd_audio_list.append(_make_audio_spec(v["mpd_url"], v["audio_locale"], hdrs, extra_license_hdrs))
@@ -157,7 +161,8 @@ def download_film(select_title: Entries) -> str:
         output_path=os.path.join(title_path, title_name),
     ).start()
 
-    time.sleep(1)
+    # Small delay to avoid rate limiting
+    time.sleep(15)
     return out_path, need_stop
 
 
@@ -197,13 +202,16 @@ def download_episode(obj_episode, index_season_selected, index_episode_selected,
         if locale not in urls_by_locale:
             console.print(f"[yellow]Locale {locale} not available for this episode")
             continue
+
         extra_guid = urls_by_locale[locale].split('/')[-1]
         if extra_guid == main_id:
             continue
+
         try:
             extra_mpd_url, extra_mpd_headers, _, extra_token, _ = get_playback_session(client, extra_guid, None)
             extra_license_hdrs = _build_license_headers(extra_mpd_headers, extra_guid, extra_mpd_url, extra_token)
             mpd_audio_list.append(_make_audio_spec(extra_mpd_url, locale, extra_mpd_headers, extra_license_hdrs))
+            time.sleep(5)  # Small delay to avoid rate limiting between calls
         except Exception as e:
             console.print(f"[yellow]Errore fetch audio {locale}: {e}")
 
@@ -227,7 +235,7 @@ def download_episode(obj_episode, index_season_selected, index_episode_selected,
     ).start()
 
     # Small delay between episodes to avoid rate limiting
-    time.sleep(1)
+    time.sleep(15)
     return out_path, need_stop
 
 def download_series(select_season: Entries, season_selection: str = None, episode_selection: str = None, scrape_serie = None) -> None:
