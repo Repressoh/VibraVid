@@ -29,9 +29,9 @@ from GUI.searchapp.api.base import Entries
 
 
 # CLI utilities
-from StreamingCommunity.source.utils.tracker import download_tracker, context_tracker
-from StreamingCommunity.utils.tmdb_client import tmdb_client
-from StreamingCommunity.cli.run import execute_hooks
+from VibraVid.source.utils.tracker import download_tracker, context_tracker
+from VibraVid.utils.tmdb_client import tmdb_client
+from VibraVid.cli.run import execute_hooks
 
 
 # Global download executor

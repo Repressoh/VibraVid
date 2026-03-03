@@ -9,9 +9,9 @@ from .base import BaseStreamingAPI, Entries, Season, Episode
 
 
 # External utilities
-from StreamingCommunity.utils import config_manager
-from StreamingCommunity.services._base.site_loader import get_folder_name
-from StreamingCommunity.services.guardaserie.scrapper import GetSerieInfo
+from VibraVid.utils import config_manager
+from VibraVid.services._base.site_loader import get_folder_name
+from VibraVid.services.guardaserie.scrapper import GetSerieInfo
 
 
 class GuardaSerieAPI(BaseStreamingAPI):
@@ -29,7 +29,7 @@ class GuardaSerieAPI(BaseStreamingAPI):
     def _get_search_fn(self):
         """Lazy load the search function."""
         if self._search_fn is None:
-            module = importlib.import_module(f"StreamingCommunity.{get_folder_name()}.{self.site_name}")
+            module = importlib.import_module(f"VibraVid.{get_folder_name()}.{self.site_name}")
             self._search_fn = getattr(module, "search")
         return self._search_fn
     

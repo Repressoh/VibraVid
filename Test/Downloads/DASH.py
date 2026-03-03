@@ -10,8 +10,8 @@ src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 sys.path.append(src_path)
 
 
-from StreamingCommunity.utils import config_manager, start_message
-from StreamingCommunity.core.downloader import DASH_Downloader
+from VibraVid.utils import config_manager, start_message
+from VibraVid.core.downloader import DASH_Downloader
 
 
 start_message()

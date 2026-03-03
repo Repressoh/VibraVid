@@ -2,7 +2,7 @@
 
 
 # Internal utilities
-from StreamingCommunity.cli.run import main
+from VibraVid.cli.run import main
 
 
 main()

@@ -15,7 +15,7 @@ def main():
 
     if 'RUN_MAIN' not in os.environ:
         print("Running pre-run hooks...")
-        from StreamingCommunity.cli.run import execute_hooks
+        from VibraVid.cli.run import execute_hooks
         execute_hooks('pre_run')
     
     from django.core.management import execute_from_command_line

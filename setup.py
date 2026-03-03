@@ -95,7 +95,7 @@ setup(
     ],
     
     project_urls={
-        "Bug Reports": "https://github.com/AstraeLabs/StreamingCommunity/issues",
-        "Source": "https://github.com/AstraeLabs/StreamingCommunity",
+        "Bug Reports": "https://github.com/AstraeLabs/VibraVid/issues",
+        "Source": "https://github.com/AstraeLabs/VibraVid",
     }
 )

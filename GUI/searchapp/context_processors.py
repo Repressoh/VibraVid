@@ -1,7 +1,7 @@
 # Context processors for searchapp
 
-from StreamingCommunity.upload.version import __version__
-from StreamingCommunity.source.utils.tracker import DownloadTracker
+from VibraVid.upload.version import __version__
+from VibraVid.source.utils.tracker import DownloadTracker
 
 
 def version_context(request):

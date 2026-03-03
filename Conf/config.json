@@ -20,6 +20,7 @@
         "thread_count": 8,
         "retry_count": 25,
         "concurrent_download": true,
+        "max_concurrent_jobs": 4,
         "max_speed": "",
         "select_video": "best",
         "select_audio": "lang='ita|Ita|it':for=best",

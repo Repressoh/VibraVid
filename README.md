@@ -7,11 +7,12 @@
 [![macOS](https://img.shields.io/badge/🍎_macOS-000000?style=for-the-badge&logo=apple&logoColor=white&labelColor=2d3748)](https://github.com/AstraeLabs/StreamingCommunity/releases/latest/download/StreamingCommunity_mac_15_x64)
 [![Linux](https://img.shields.io/badge/🐧_Linux_latest-FCC624?style=for-the-badge&logo=linux&logoColor=black&labelColor=2d3748)](https://github.com/AstraeLabs/StreamingCommunity/releases/latest/download/StreamingCommunity_linux_24_04_x64)
 
-*⚡ **Quick Start:** `pip install StreamingCommunity && StreamingCommunity`*
+_⚡ **Quick Start:** `pip install StreamingCommunity && StreamingCommunity`_
 
 </div>
 
 ## 📖 Table of Contents
+
 - [Installation](#installation)
 - [Quick Start](#quick-start)
 - [DNS Configuration](#dns-configuration)
@@ -29,6 +30,7 @@
 ## Installation
 
 ### Manual Clone
+
 ```bash
 git clone https://github.com/AstraeLabs/StreamingCommunity.git
 cd StreamingCommunity
@@ -37,11 +39,13 @@ python test_run.py
 ```
 
 ### Update
+
 ```bash
 python update.py
 ```
 
 ### Additional Documentation
+
 - 📝 [Login Guide](.github/doc/login.md) - Authentication for supported services
 
 ---
@@ -71,12 +75,12 @@ Use one of these DNS providers:
 
 ## Downloaders
 
-| Type | Description | Example |
-|------|-------------|---------|
-| **HLS** | HTTP Live Streaming (m3u8) | [View example](./Test/Downloads/HLS.py) |
-| **MP4** | Direct MP4 download | [View example](./Test/Downloads/MP4.py) |
-| **DASH** | MPEG-DASH with DRM bypass* | [View example](./Test/Downloads/DASH.py) |
-| **MEGA** | MEGA.nz downloads | [View example](./Test/Downloads/MEGA.py) |
+| Type     | Description                 | Example                                  |
+| -------- | --------------------------- | ---------------------------------------- |
+| **HLS**  | HTTP Live Streaming (m3u8)  | [View example](./Test/Downloads/HLS.py)  |
+| **MP4**  | Direct MP4 download         | [View example](./Test/Downloads/MP4.py)  |
+| **DASH** | MPEG-DASH with DRM bypass\* | [View example](./Test/Downloads/DASH.py) |
+| **MEGA** | MEGA.nz downloads           | [View example](./Test/Downloads/MEGA.py) |
 
 **\*DASH with DRM bypass:** Requires a valid L3 CDM (Content Decryption Module). This project does not provide or facilitate obtaining CDMs. Users must ensure compliance with applicable laws.
 
@@ -87,69 +91,75 @@ Use one of these DNS providers:
 Key configuration parameters in `config.json`:
 
 ### Output Directories
+
 ```json
 {
-    "OUTPUT": {
-        "root_path": "Video",
-        "movie_folder_name": "Movie",
-        "serie_folder_name": "Serie",
-        "anime_folder_name": "Anime",
-        "episode_format": "%(episode_name) S%(season)E%(episode)",
-        "season_format": "S%(season)",
-        "add_siteName": false
-    }
+	"OUTPUT": {
+		"root_path": "Video",
+		"movie_folder_name": "Movie",
+		"serie_folder_name": "Serie",
+		"anime_folder_name": "Anime",
+		"episode_format": "%(episode_name) S%(season)E%(episode)",
+		"season_format": "S%(season)",
+		"add_siteName": false
+	}
 }
 ```
 
 - **`root_path`**: Base directory where videos are saved
-  - Windows: `C:\\MyLibrary\\Folder` or `\\\\MyServer\\Share`
-  - Linux/MacOS: `Desktop/MyLibrary/Folder`
+    - Windows: `C:\\MyLibrary\\Folder` or `\\\\MyServer\\Share`
+    - Linux/MacOS: `Desktop/MyLibrary/Folder`
 
 - **`movie_folder_name`**: Subfolder name for movies (default: `"Movie"`)
 - **`serie_folder_name`**: Subfolder name for TV series (default: `"Serie"`)
 - **`anime_folder_name`**: Subfolder name for anime (default: `"Anime"`)
 
 - **`episode_format`**: Episode filename template
-  - `%(tv_name)`: TV Show name
-  - `%(season)`: Season number (zero-padded)
-  - `%(episode)`: Episode number (zero-padded)
-  - `%(episode_name)`: Episode title
-  - Example: `"%(episode_name) S%(season)E%(episode)"` → `"Pilot S01E01"`
+    - `%(tv_name)`: TV Show name
+    - `%(season)`: Season number (zero-padded)
+    - `%(episode)`: Episode number (zero-padded)
+    - `%(episode_name)`: Episode title
+    - Example: `"%(episode_name) S%(season)E%(episode)"` → `"Pilot S01E01"`
 
 - **`season_format`**: Season folder name template (default: `"S%(season)"`)
-  - `%(season)`: Season number (zero-padded)
-  - Example: `"S%(season)"` → `"S01"` or `"Stagione %(season)"` → `"Stagione 1"`
+    - `%(season)`: Season number (zero-padded)
+    - Example: `"S%(season)"` → `"S01"` or `"Stagione %(season)"` → `"Stagione 1"`
 
 - **`add_siteName`**: Append site name to root path (default: `false`)
 
 ### Download Settings
+
 ```json
 {
-    "DOWNLOAD": {
-        "thread_count": 12,
-        "retry_count": 40,
-        "concurrent_download": true,
-        "max_speed": "30MB",
-        "select_video": "res=.*1080.*:for=best",
-        "select_audio": "lang='ita|Ita':for=all",
-        "select_subtitle": "lang='ita|eng|Ita|Eng':for=all",
-        "cleanup_tmp_folder": true
-    }
+	"DOWNLOAD": {
+		"thread_count": 12,
+		"retry_count": 40,
+		"concurrent_download": true,
+		"max_concurrent_jobs": 3,
+		"max_speed": "30MB",
+		"select_video": "res=.*1080.*:for=best",
+		"select_audio": "lang='ita|Ita':for=all",
+		"select_subtitle": "lang='ita|eng|Ita|Eng':for=all",
+		"cleanup_tmp_folder": true
+	}
 }
 ```
 
 #### Performance Settings
+
 - **`auto_select`**: Automatically select streams based on filters (default: `true`). When `false`, enables interactive stream selection mode where user can manually choose video/audio/subtitle tracks before download.
 - **`skip_download`**: Skip the download step and process existing files (default: `false`)
 - **`thread_count`**: Number of parallel download threads (default: `12`)
 - **`retry_count`**: Maximum retry attempts for failed segments (default: `40`)
-- **`concurrent_download`**: Download video and audio simultaneously (default: `true`)
+- **`concurrent_download`**: Enable parallel download queue for films and series episodes (default: `true`). When `true`, downloads are queued and processed by a thread pool with a live Download Monitor table. When `false`, downloads run sequentially.
+- **`max_concurrent_jobs`**: Maximum number of downloads running simultaneously in the queue (default: `3`)
 - **`max_speed`**: Speed limit per stream (e.g., `"30MB"`, `"10MB"`)
 - **`cleanup_tmp_folder`**: Remove temporary files after download (default: `true`)
 
 #### Stream Selection
 
 **- `select_video`**
+
 ```
 OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
          segsMin=number:segsMax=number:ch=REGEX:range=REGEX:url=REGEX:
@@ -157,6 +167,7 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 
     for=FOR: Selection type - best (default), best[number], worst[number], all
 ```
+
 ```json
 "select_video": "for=best"                                // Select best video
 "select_video": "res=3840*:codecs=hvc1:for=best"          // Select 4K HEVC video
@@ -166,7 +177,8 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 "select_video": "bwMin=800:bwMax=1000:for=best"           // Bandwidth 800-1000 Kbps
 ```
 
-**- `select_audio`** 
+**- `select_audio`**
+
 ```json
 "select_audio": "for=all"                                 // Select all audio tracks
 "select_audio": "lang=en:for=best"                        // Select best English audio
@@ -175,7 +187,8 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 "select_audio": "role=main:for=best"                      // Main audio role
 ```
 
-**- `select_subtitle`** 
+**- `select_subtitle`**
+
 ```json
 "select_subtitle": "for=all"                              // Select all subtitles
 "select_subtitle": "name=English:for=all"                 // All subtitles containing "English"
@@ -185,31 +198,32 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 ```
 
 ### Processing Settings
+
 ```json
 {
-    "PROCESS": {
-        "generate_nfo": false,
-        "use_gpu": false,
-        "param_video": ["-c:v", "libx265", "-crf", "28", "-preset", "medium"],
-        "param_audio": ["-c:a", "libopus", "-b:a", "128k"],
-        "param_final": ["-c", "copy"],
-        "audio_order": ["ita", "eng"],
-        "subtitle_order": ["ita", "eng"],
-        "merge_audio": true,
-        "merge_subtitle": true,
-        "subtitle_disposition": true,
-        "subtitle_disposition_language": ["forced-ita", "ita-forced"],
-        "extension": "mkv"
-    }
+	"PROCESS": {
+		"generate_nfo": false,
+		"use_gpu": false,
+		"param_video": ["-c:v", "libx265", "-crf", "28", "-preset", "medium"],
+		"param_audio": ["-c:a", "libopus", "-b:a", "128k"],
+		"param_final": ["-c", "copy"],
+		"audio_order": ["ita", "eng"],
+		"subtitle_order": ["ita", "eng"],
+		"merge_audio": true,
+		"merge_subtitle": true,
+		"subtitle_disposition": true,
+		"subtitle_disposition_language": ["forced-ita", "ita-forced"],
+		"extension": "mkv"
+	}
 }
 ```
 
 - **`generate_nfo`**: Generate .nfo metadata file alongside the video (default: `false`)
 - **`use_gpu`**: Enable hardware acceleration (default: `false`)
 - **`param_video`**: FFmpeg video encoding parameters
-  - Example: `["-c:v", "libx265", "-crf", "28", "-preset", "medium"]` (H.265/HEVC encoding)
+    - Example: `["-c:v", "libx265", "-crf", "28", "-preset", "medium"]` (H.265/HEVC encoding)
 - **`param_audio`**: FFmpeg audio encoding parameters
-  - Example: `["-c:a", "libopus", "-b:a", "128k"]` (Opus audio at 128kbps)
+    - Example: `["-c:a", "libopus", "-b:a", "128k"]` (Opus audio at 128kbps)
 - **`param_final`**: Final FFmpeg parameters (default: `["-c", "copy"]` for stream copy)
 - **`audio_order`**: List of strings to order audio tracks (e.g., `["ita", "eng"]`)
 - **`subtitle_order`**: List of strings to order subtitle tracks (e.g., `["ita", "eng"]`)
@@ -217,22 +231,23 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 - **`merge_subtitle`**: Merge all subtitle tracks into a single output file (default: `true`)
 - **`subtitle_disposition`**: Automatically set default subtitle track (default: `true`)
 - **`subtitle_disposition_language`**: Languages to mark as default/forced
-  - Example: `["forced-ita", "ita-forced"]` for Italian forced subtitles
+    - Example: `["forced-ita", "ita-forced"]` for Italian forced subtitles
 - **`extension`**: Output file format (`"mkv"` or `"mp4"`)
 
 ### Request Settings
+
 ```json
 {
-    "REQUESTS": {
-        "verify": false,
-        "timeout": 30,
-        "max_retry": 10,
-        "use_proxy": false,
-        "proxy": {
-            "http": "http://localhost:8888",
-            "https": "http://localhost:8888"
-        }
-    }
+	"REQUESTS": {
+		"verify": false,
+		"timeout": 30,
+		"max_retry": 10,
+		"use_proxy": false,
+		"proxy": {
+			"http": "http://localhost:8888",
+			"https": "http://localhost:8888"
+		}
+	}
 }
 ```
 
@@ -241,17 +256,18 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 - **`max_retry`**: Maximum retry attempts for failed requests (default: `10`)
 - **`use_proxy`**: Enable proxy support for HTTP requests (default: `false`)
 - **`proxy`**: Proxy configuration for HTTP and HTTPS connections
-  - **`http`**: HTTP proxy URL (e.g., `"http://localhost:8888"`)
-  - **`https`**: HTTPS proxy URL (e.g., `"http://localhost:8888"`)
+    - **`http`**: HTTP proxy URL (e.g., `"http://localhost:8888"`)
+    - **`https`**: HTTPS proxy URL (e.g., `"http://localhost:8888"`)
 
 ### Default Settings
+
 ```json
 {
-    "DEFAULT": {
-        "close_console": true,
-        "show_message": false,
-        "fetch_domain_online": true
-    }
+	"DEFAULT": {
+		"close_console": true,
+		"show_message": false,
+		"fetch_domain_online": true
+	}
 }
 ```
 
@@ -264,6 +280,7 @@ OPTIONS: id=REGEX:lang=REGEX:name=REGEX:codecs=REGEX:res=REGEX:frame=REGEX:
 ## Usage Examples
 
 ### Basic Commands
+
 ```bash
 # Show help and available sites
 python test_run.py -h
@@ -304,49 +321,45 @@ Execute custom scripts before/after downloads. Configure in `config.json`:
 
 ```json
 {
-  "HOOKS": {
-    "pre_run": [
-      {
-        "name": "prepare-env",
-        "type": "python",
-        "path": "scripts/prepare.py",
-        "args": ["--clean"],
-        "env": {"MY_FLAG": "1"},
-        "cwd": "~",
-        "os": ["linux", "darwin"],
-        "timeout": 60,
-        "enabled": true,
-        "continue_on_error": true
-      }
-    ],
-    "post_download": [
-      {
-        "name": "post-download-env",
-        "type": "python",
-        "path": "/app/script.py",
-        "args": [
-          "{download_path}"
-        ],
-        "env": {
-          "MY_FLAG": "1"
-        },
-        "cwd": "~",
-        "os": [
-          "linux"
-        ],
-        "timeout": 60,
-        "enabled": true,
-        "continue_on_error": true
-      }
-    ],
-    "post_run": [
-      {
-        "name": "notify",
-        "type": "bash",
-        "command": "echo 'Download completed'"
-      }
-    ]
-  }
+	"HOOKS": {
+		"pre_run": [
+			{
+				"name": "prepare-env",
+				"type": "python",
+				"path": "scripts/prepare.py",
+				"args": ["--clean"],
+				"env": { "MY_FLAG": "1" },
+				"cwd": "~",
+				"os": ["linux", "darwin"],
+				"timeout": 60,
+				"enabled": true,
+				"continue_on_error": true
+			}
+		],
+		"post_download": [
+			{
+				"name": "post-download-env",
+				"type": "python",
+				"path": "/app/script.py",
+				"args": ["{download_path}"],
+				"env": {
+					"MY_FLAG": "1"
+				},
+				"cwd": "~",
+				"os": ["linux"],
+				"timeout": 60,
+				"enabled": true,
+				"continue_on_error": true
+			}
+		],
+		"post_run": [
+			{
+				"name": "notify",
+				"type": "bash",
+				"command": "echo 'Download completed'"
+			}
+		]
+	}
 }
 ```
 
@@ -397,6 +410,7 @@ Hooks are automatically executed before the main flow (`pre_run`), after each co
 ## Docker
 
 ### Basic Setup
+
 ```bash
 # Build image
 docker build -t streaming-community-api .
@@ -406,6 +420,7 @@ docker run -d --name streaming-community --dns 1.1.1.1 -p 8000:8000 streaming-co
 ```
 
 ### Volumes and Permissions
+
 When mounting a local folder as a volume, you might encounter permission issues. Using `-u root` ensures the container has the necessary rights to write to your host machine:
 
 ```bash
@@ -413,30 +428,31 @@ docker run -d --name streaming-community --dns 1.1.1.1 -p 8000:8000 -u root -v D
 ```
 
 ### Docker Compose Example
+
 Recommended for stability and easy DNS configuration:
 
 ```yaml
 services:
-  streaming-community:
-    build: .
-    container_name: streaming-community
-    user: root
-    dns:
-      - 1.1.1.1
-      - 8.8.8.8
-    ports:
-      - "8000:8000"
-    #environment:
-      # Replace these example values with your public domain and private LAN IP.
-      #ALLOWED_HOSTS: "streaming.example.local localhost 127.0.0.1 192.168.1.50"
-      #CSRF_TRUSTED_ORIGINS: "https://streaming.example.local"
-      #USE_X_FORWARDED_HOST: "true"
-      #SECURE_PROXY_SSL_HEADER_ENABLED: "true"
-      #CSRF_COOKIE_SECURE: "true"
-      #SESSION_COOKIE_SECURE: "true"
-    volumes:
-      - ./Video:/app/Video
-    restart: unless-stopped
+    streaming-community:
+        build: .
+        container_name: streaming-community
+        user: root
+        dns:
+            - 1.1.1.1
+            - 8.8.8.8
+        ports:
+            - "8000:8000"
+        #environment:
+        # Replace these example values with your public domain and private LAN IP.
+        #ALLOWED_HOSTS: "streaming.example.local localhost 127.0.0.1 192.168.1.50"
+        #CSRF_TRUSTED_ORIGINS: "https://streaming.example.local"
+        #USE_X_FORWARDED_HOST: "true"
+        #SECURE_PROXY_SSL_HEADER_ENABLED: "true"
+        #CSRF_COOKIE_SECURE: "true"
+        #SESSION_COOKIE_SECURE: "true"
+        volumes:
+            - ./Video:/app/Video
+        restart: unless-stopped
 ```
 
 The `environment` section is intended for deployments behind an HTTPS reverse proxy. Replace the example domain and private IP with your own values.
@@ -462,7 +478,7 @@ The `environment` section is intended for deployments behind an HTTPS reverse pr
 ---
 
 ## Disclaimer
->
+
 > This software is provided strictly for **educational and research purposes only**. The author and contributors:
 >
 > - **DO NOT** assume any responsibility for illegal or unauthorized use of this software
