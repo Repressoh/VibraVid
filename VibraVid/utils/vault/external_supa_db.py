@@ -82,7 +82,7 @@ class ExternalSupaDBVault:
             "keys": keys_payload,
         }
 
-        result = self._post("set-key", payload)
+        result = self._post("save-keys", payload)
         if result is None:
             return 0
 

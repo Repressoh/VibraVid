@@ -21,10 +21,10 @@ DOMAINS_FILENAME = 'domains.json'
 GITHUB_DOMAINS_PATH = '.github/script/domains.json'
 REMOTE_CDM_PATH = 'remote_cdm.json'
 
-CONFIG_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/StreamingCommunity/refs/heads/main/Conf/config.json'
-CONFIG_LOGIN_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/StreamingCommunity/refs/heads/main/Conf/login.json'
+CONFIG_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/VibraVid/refs/heads/main/Conf/config.json'
+CONFIG_LOGIN_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/VibraVid/refs/heads/main/Conf/login.json'
 DOMAINS_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/Domains/refs/heads/main/domains.json'
-REMOTE_CDM_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/StreamingCommunity/refs/heads/main/Conf/remote_cdm.json'
+REMOTE_CDM_DOWNLOAD_URL = 'https://raw.githubusercontent.com/AstraeLabs/VibraVid/refs/heads/main/Conf/remote_cdm.json'
 
 class ConfigAccessor:
     def __init__(self, config_dict: Dict, cache: Dict, cache_prefix: str, cache_enabled: bool = True):

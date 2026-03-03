@@ -17,6 +17,7 @@ VibraVid/
 │   │   │   ├── __init__.py
 │   │   │   ├── hls.py           # HTTP Live Streaming (M3U8)
 │   │   │   ├── dash.py          # MPEG-DASH with DRM
+│   │   │   ├── ism.py           # ISM Smooth Streaming
 │   │   │   ├── mp4.py           # Direct MP4 download
 │   │   │   └── mega.py          # MEGA.nz downloads
 │   │   ├── drm/                 # Digital Rights Management
@@ -26,7 +27,8 @@ VibraVid/
 │   │   │   └── playready.py     # PlayReady handling
 │   │   ├── parser/              # Manifest parsing
 │   │   │   ├── __init__.py
-│   │   │   └── mpd.py           # MPD manifest parser
+│   │   │   ├── mpd.py           # MPD manifest parser
+│   │   │   └── ism.py           # ISM manifest parser
 │   │   ├── processors/          # Post-download processing
 │   │   │   ├── __init__.py
 │   │   │   ├── capture.py       # Subtitle/audio/video capture
@@ -111,7 +113,6 @@ VibraVid/
 ├── Conf/                        # Configuration files (not in package)
 │   ├── config.json              # Default configuration
 │   ├── login.json               # Service credentials
-│   ├── domains.json             # Service domain mappings
 │   └── remote_cdm.json          # Remote CDM configuration
 ├── GUI/                         # Alternative GUI interface (separate module)
 │   └── ...
@@ -120,6 +121,7 @@ VibraVid/
 │   │   ├── HLS.py
 │   │   ├── MP4.py
 │   │   ├── DASH.py
+│   │   ├── ISM.py
 │   │   └── MEGA.py
 │   └── Util/
 │       └── hooks.py
@@ -134,7 +136,7 @@ VibraVid/
 
 ## Directory Purposes
 
-**StreamingCommunity/**
+**VibraVid/**
 
 - Purpose: Main package containing all production code
 - Contains: CLI, services, core pipeline, utilities
@@ -148,7 +150,7 @@ VibraVid/
 **core/downloader/**
 
 - Purpose: Format-specific download implementations
-- Contains: HLS, DASH, MP4, MEGA downloaders
+- Contains: HLS, DASH, ISM, MP4, MEGA downloaders
 - Key files: `hls.py`, `dash.py` implement download logic
 
 **core/drm/**
@@ -201,24 +203,23 @@ VibraVid/
 
 **Entry Points:**
 
-- `StreamingCommunity/__main__.py`: Package entry point (calls cli.run.main)
-- `StreamingCommunity/cli/run.py`: Main CLI orchestrator (main function at line 348)
+- `VibraVid/__main__.py`: Package entry point (calls cli.run.main)
+- `VibraVid/cli/run.py`: Main CLI orchestrator (main function at line 348)
 
 **Configuration:**
 
 - `Conf/config.json`: Default settings and feature flags
 - `Conf/login.json`: Service credentials
-- `Conf/domains.json`: Domain/URL mappings per service
 - `Conf/remote_cdm.json`: DRM CDM configuration
-- `StreamingCommunity/utils/config.py`: ConfigManager (loads and caches config)
+- `VibraVid/utils/config.py`: ConfigManager (loads and caches config)
 
 **Core Logic:**
 
-- `StreamingCommunity/core/downloader/hls.py`: HLS download orchestrator
-- `StreamingCommunity/core/downloader/dash.py`: DASH download with DRM
-- `StreamingCommunity/core/drm/manager.py`: DRM key extraction
-- `StreamingCommunity/services/_base/object.py`: Domain models
-- `StreamingCommunity/services/_base/site_loader.py`: Service loading
+- `VibraVid/core/downloader/hls.py`: HLS download orchestrator
+- `VibraVid/core/downloader/dash.py`: DASH download with DRM
+- `VibraVid/core/drm/manager.py`: DRM key extraction
+- `VibraVid/services/_base/object.py`: Domain models
+- `VibraVid/services/_base/site_loader.py`: Service loading
 
 **Testing:**
 
@@ -259,7 +260,7 @@ VibraVid/
 
 **New Service Plugin:**
 
-- Primary code: `StreamingCommunity/services/{new_site}/`
+- Primary code: `VibraVid/services/{new_site}/`
 - Files needed:
     - `__init__.py`: Define `search(query, ...)` and `_useFor = "..."` (required)
     - `scrapper.py`: Web scraping logic
@@ -269,24 +270,24 @@ VibraVid/
 
 **New Downloader Format:**
 
-- Implementation: `StreamingCommunity/core/downloader/{format}.py`
+- Implementation: `VibraVid/core/downloader/{format}.py`
 - Pattern: Inherit download interface pattern from HLS_Downloader
-- Export: Add to imports in `StreamingCommunity/core/downloader/__init__.py`
+- Export: Add to imports in `VibraVid/core/downloader/__init__.py`
 
 **New Processor/Helper:**
 
-- Implementation: `StreamingCommunity/core/processors/` or `StreamingCommunity/core/processors/helper/`
+- Implementation: `VibraVid/core/processors/` or `VibraVid/core/processors/helper/`
 - Pattern: Follow merge.py or capture.py patterns
-- Export: Add to `StreamingCommunity/core/processors/__init__.py`
+- Export: Add to `VibraVid/core/processors/__init__.py`
 
 **New Utilities:**
 
-- Shared helpers: `StreamingCommunity/utils/{feature}/` (create subdir if needed)
-- Console UI: `StreamingCommunity/utils/console/`
-- Vault/storage: `StreamingCommunity/utils/vault/`
+- Shared helpers: `VibraVid/utils/{feature}/` (create subdir if needed)
+- Console UI: `VibraVid/utils/console/`
+- Vault/storage: `VibraVid/utils/vault/`
 
 **Configuration:**
 
 - Settings: Edit `Conf/config.json` and reload via ConfigManager
-- Service domains: `Conf/domains.json`
 - Credentials: `Conf/login.json`
+- Service domains: Fetched remotely from `AstraeLabs/Domains` repo

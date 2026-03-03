@@ -4,7 +4,7 @@
         "create_local_db": false
     },
     "external_supa_db": {
-        "url": "https://hxutwmklahyeisuvmnli.supabase.co"
+        "url": "https://crqczuxpqjmrjvdvqvlx.supabase.co/"
     },
     "remote_cdm": {
         "widevine": {

@@ -20,14 +20,14 @@ def read_requirements():
 def get_version():
     try:
         import pkg_resources
-        return pkg_resources.get_distribution('StreamingCommunity').version
+        return pkg_resources.get_distribution('VibraVid').version
     except Exception:
-        version_file_path = os.path.join(os.path.dirname(__file__), "StreamingCommunity", "upload", "version.py")
+        version_file_path = os.path.join(os.path.dirname(__file__), "VibraVid", "upload", "version.py")
         with open(version_file_path, "r", encoding="utf-8") as f:
             version_match = re.search(r"^__version__\s*=\s*['\"]([^'\"]*)['\"]$", f.read(), re.M)
         if version_match:
             return version_match.group(1)
-        raise RuntimeError("Unable to find version string in StreamingCommunity/upload/version.py.")
+        raise RuntimeError("Unable to find version string in VibraVid/upload/version.py.")
 
 def get_package_data_files(directory):
     """Get all .py files in the specified directory and its subdirectories."""
@@ -43,13 +43,13 @@ def get_package_data_files(directory):
     return paths
 
 setup(
-    name="StreamingCommunity",
+    name="VibraVid",
     version=get_version(),
     description="Download content from streaming platforms",
     long_description=read_readme(),
     long_description_content_type="text/markdown",
     author="Arrowar",
-    url="https://github.com/AstraeLabs/StreamingCommunity",
+    url="https://github.com/AstraeLabs/VibraVid",
     
     packages=find_packages(
         exclude=["tests", "tests.*", "docs", "docs.*", "GUI", "GUI.*", "Test", "Test.*"]
@@ -60,7 +60,7 @@ setup(
     
     entry_points={
         "console_scripts": [
-            "streamingcommunity=StreamingCommunity.cli.run:main",
+            "VibraVid=VibraVid.cli.run:main",
         ],
     },
     
@@ -68,7 +68,7 @@ setup(
     
     package_data={
         '': ['*.txt', '*.md', '*.json', '*.yaml', '*.yml', '*.cfg'],
-        'StreamingCommunity': [
+        'VibraVid': [
             '**/*.txt', '**/*.json', '**/*.yaml',
             'cli/**/*.py',
             'core/**/*.py',

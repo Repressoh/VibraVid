@@ -1,13 +1,13 @@
 <div align="center">
 
-[![PyPI Version](https://img.shields.io/pypi/v/streamingcommunity?logo=pypi&logoColor=white&labelColor=2d3748&color=3182ce&style=for-the-badge)](https://pypi.org/project/streamingcommunity/)
+[![PyPI Version](https://img.shields.io/pypi/v/vibravid?logo=pypi&logoColor=white&labelColor=2d3748&color=3182ce&style=for-the-badge)](https://pypi.org/project/vibravid/)
 [![Sponsor](https://img.shields.io/badge/💖_Sponsor-ea4aaa?style=for-the-badge&logo=github-sponsors&logoColor=white&labelColor=2d3748)](https://ko-fi.com/arrowar)
 
-[![Windows](https://img.shields.io/badge/🪟_Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white&labelColor=2d3748)](https://github.com/AstraeLabs/StreamingCommunity/releases/latest/download/StreamingCommunity_win_2025_x64.exe)
-[![macOS](https://img.shields.io/badge/🍎_macOS-000000?style=for-the-badge&logo=apple&logoColor=white&labelColor=2d3748)](https://github.com/AstraeLabs/StreamingCommunity/releases/latest/download/StreamingCommunity_mac_15_x64)
-[![Linux](https://img.shields.io/badge/🐧_Linux_latest-FCC624?style=for-the-badge&logo=linux&logoColor=black&labelColor=2d3748)](https://github.com/AstraeLabs/StreamingCommunity/releases/latest/download/StreamingCommunity_linux_24_04_x64)
+[![Windows](https://img.shields.io/badge/🪟_Windows-0078D4?style=for-the-badge&logo=windows&logoColor=white&labelColor=2d3748)](https://github.com/AstraeLabs/VibraVid/releases/latest/download/VibraVid_win_2025_x64.exe)
+[![macOS](https://img.shields.io/badge/🍎_macOS-000000?style=for-the-badge&logo=apple&logoColor=white&labelColor=2d3748)](https://github.com/AstraeLabs/VibraVid/releases/latest/download/VibraVid_mac_15_x64)
+[![Linux](https://img.shields.io/badge/🐧_Linux_latest-FCC624?style=for-the-badge&logo=linux&logoColor=black&labelColor=2d3748)](https://github.com/AstraeLabs/VibraVid/releases/latest/download/VibraVid_linux_24_04_x64)
 
-_⚡ **Quick Start:** `pip install StreamingCommunity && StreamingCommunity`_
+_⚡ **Quick Start:** `pip install VibraVid && VibraVid`_
 
 </div>
 
@@ -32,10 +32,10 @@ _⚡ **Quick Start:** `pip install StreamingCommunity && StreamingCommunity`_
 ### Manual Clone
 
 ```bash
-git clone https://github.com/AstraeLabs/StreamingCommunity.git
-cd StreamingCommunity
+git clone https://github.com/AstraeLabs/VibraVid.git
+cd VibraVid
 pip install -r requirements.txt
-python test_run.py
+python manual.py
 ```
 
 ### Update
@@ -54,10 +54,10 @@ python update.py
 
 ```bash
 # If installed via PyPI
-StreamingCommunity
+VibraVid
 
 # If cloned manually
-python test_run.py
+python manual.py
 ```
 
 ---
@@ -80,6 +80,7 @@ Use one of these DNS providers:
 | **HLS**  | HTTP Live Streaming (m3u8)  | [View example](./Test/Downloads/HLS.py)  |
 | **MP4**  | Direct MP4 download         | [View example](./Test/Downloads/MP4.py)  |
 | **DASH** | MPEG-DASH with DRM bypass\* | [View example](./Test/Downloads/DASH.py) |
+| **ISM**  | ISM Smooth Streaming        | [View example](./Test/Downloads/ISM.py)  |
 | **MEGA** | MEGA.nz downloads           | [View example](./Test/Downloads/MEGA.py) |
 
 **\*DASH with DRM bypass:** Requires a valid L3 CDM (Content Decryption Module). This project does not provide or facilitate obtaining CDMs. Users must ensure compliance with applicable laws.
@@ -151,8 +152,8 @@ Key configuration parameters in `config.json`:
 - **`skip_download`**: Skip the download step and process existing files (default: `false`)
 - **`thread_count`**: Number of parallel download threads (default: `12`)
 - **`retry_count`**: Maximum retry attempts for failed segments (default: `40`)
-- **`concurrent_download`**: Enable parallel download queue for films and series episodes (default: `true`). When `true`, downloads are queued and processed by a thread pool with a live Download Monitor table. When `false`, downloads run sequentially.
-- **`max_concurrent_jobs`**: Maximum number of downloads running simultaneously in the queue (default: `3`)
+- **`concurrent_download`**: Enable parallel download queue for films and series episodes (default: `true`). When `true`, downloads are queued and processed by a thread pool with a live Download Monitor table. When `false`, downloads run sequentially. When only one item is in the queue, it will download immediately regardless of this setting.
+- **`max_concurrent_jobs`**: Maximum number of downloads running simultaneously in the queue (default: `3`). **Note: Adding more threads may cause performance issues and slower download speeds.**
 - **`max_speed`**: Speed limit per stream (e.g., `"30MB"`, `"10MB"`)
 - **`cleanup_tmp_folder`**: Remove temporary files after download (default: `true`)
 
@@ -413,10 +414,10 @@ Hooks are automatically executed before the main flow (`pre_run`), after each co
 
 ```bash
 # Build image
-docker build -t streaming-community-api .
+docker build -t vibravid-api .
 
 # Run with Cloudflare DNS
-docker run -d --name streaming-community --dns 1.1.1.1 -p 8000:8000 streaming-community-api
+docker run -d --name vibravid --dns 1.1.1.1 -p 8000:8000 vibravid-api
 ```
 
 ### Volumes and Permissions
@@ -424,7 +425,7 @@ docker run -d --name streaming-community --dns 1.1.1.1 -p 8000:8000 streaming-co
 When mounting a local folder as a volume, you might encounter permission issues. Using `-u root` ensures the container has the necessary rights to write to your host machine:
 
 ```bash
-docker run -d --name streaming-community --dns 1.1.1.1 -p 8000:8000 -u root -v D:\Download:/app/Video streaming-community-api
+docker run -d --name vibravid --dns 1.1.1.1 -p 8000:8000 -u root -v D:\Download:/app/Video vibravid-api
 ```
 
 ### Docker Compose Example
@@ -433,9 +434,9 @@ Recommended for stability and easy DNS configuration:
 
 ```yaml
 services:
-    streaming-community:
+    vibravid:
         build: .
-        container_name: streaming-community
+        container_name: vibravid
         user: root
         dns:
             - 1.1.1.1
