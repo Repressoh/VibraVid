@@ -113,7 +113,6 @@ VibraVid/
 ├── Conf/                        # Configuration files (not in package)
 │   ├── config.json              # Default configuration
 │   ├── login.json               # Service credentials
-│   └── remote_cdm.json          # Remote CDM configuration
 ├── GUI/                         # Alternative GUI interface (separate module)
 │   └── ...
 ├── Test/                        # Test utilities
@@ -127,7 +126,7 @@ VibraVid/
 │       └── hooks.py
 ├── setup.py                     # Package installation config
 ├── requirements.txt             # Python dependencies
-├── test_run.py                  # Entry point for manual testing
+├── manual.py                  # Entry point for manual testing
 ├── update.py                    # Update script
 ├── dockerfile                   # Docker configuration
 ├── .github/                     # GitHub workflows & docs
@@ -210,7 +209,6 @@ VibraVid/
 
 - `Conf/config.json`: Default settings and feature flags
 - `Conf/login.json`: Service credentials
-- `Conf/remote_cdm.json`: DRM CDM configuration
 - `VibraVid/utils/config.py`: ConfigManager (loads and caches config)
 
 **Core Logic:**
@@ -224,7 +222,7 @@ VibraVid/
 **Testing:**
 
 - `Test/Downloads/*.py`: Example download scenarios
-- `test_run.py`: Entry point for manual runs
+- `manual.py`: Entry point for manual runs
 
 ## Naming Conventions
 
